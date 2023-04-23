@@ -1,0 +1,30 @@
+
+# technical files
+.pytest_cache/
+**/.pytest_cache/
+.quarto/
+.Rproj.user/
+**/.Rproj.user/
+.vscode/
+*/__pycache__
+*.html
+/.luarc.json
+.luarc.json
+/.quarto/
+.DS_Store
+
+*.pyc
+
+# exclude subfolders
+
+notebooks/
+examples/
+projects/
+data/
+thesis/
+_output/
+# existing git repositories
+MEG-ASSR-Pipeline/
+poirot
+
+.gitmodules
