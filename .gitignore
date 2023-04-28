@@ -25,6 +25,4 @@ thesis/
 _output/
 # existing git repositories
 MEG-ASSR-Pipeline/
-poirot
 
-.gitmodules

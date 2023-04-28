@@ -1,0 +1,3 @@
+[submodule "poirot"]
+	path = poirot
+	url = git@github.com:danieltomasz/poirot.git
