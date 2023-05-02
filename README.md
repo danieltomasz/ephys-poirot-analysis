@@ -3,4 +3,6 @@
 Specific analyses are in the folder studies.
 They should be trated as a git submodules.
 
-Poirot = belgian neuro-detective investigating neural osciallations.
+Poirot = belgian neuro-detective investigating neural oscillations.
+
+It cointains repository `poirot` as a submodule.
