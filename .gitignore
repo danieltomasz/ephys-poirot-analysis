@@ -12,6 +12,7 @@
 .luarc.json
 /.quarto/
 .DS_Store
+.Rhistory
 
 *.pyc
 
@@ -26,3 +27,7 @@ _output/
 # existing git repositories
 MEG-ASSR-Pipeline/
 
+
+# exclude env
+.env
+studies/*/central.cfg

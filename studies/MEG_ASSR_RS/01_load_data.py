@@ -20,6 +20,14 @@ SUBS = ['S001', 'S002', 'S003', 'S004', 'S005', 'S006', 'S007',
         'S008', 'S009', 'S010', 'S011', 'S012', 'S013', 'S014', 'S015']
 sessions = ["Session1", "Session2"]
 
+PATTERN = "S{}"
+subject_list = [] 
+for i in range(1, 16):
+    padded_num = str(i).zfill(3)
+    x = PATTERN.format(padded_num)
+    subject_list.append(x)
+print(subject_list)
+
 if __name__ == "__main__":
     with tqdm(total=len(SUBS)) as pbar:
         for sub in SUBS:
@@ -61,6 +69,6 @@ if __name__ == "__main__":
                         .assign_coords(regions = ("labels", regions)))
                     list_y.append(y)      
             ds = xr.combine_by_coords(list_y)
-            ds.to_netcdf(f"{DATA_FOLDER}/output/{sub}_MEG_ASSR_times.nc")
+            ds.to_netcdf(f"{DATA_FOLDER}/interim/timeseries/{sub}_MEG_ASSR_times.nc")
             pbar.update(1)
 
