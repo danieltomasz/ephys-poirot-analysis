@@ -31,3 +31,5 @@ MEG-ASSR-Pipeline/
 # exclude env
 .env
 studies/*/central.cfg
+
+meg-workflow/.snakemake/

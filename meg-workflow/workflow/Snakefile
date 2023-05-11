@@ -1,0 +1,25 @@
+SUBS = ['S001', 'S002', 'S003', 'S004', 'S005', 'S006', 'S007', 
+        'S008', 'S009', 'S010', 'S011', 'S012', 'S013', 'S014', 'S015']
+
+DATA_FOLDER = "/Volumes/ExtremePro/Analyses/ASP0"
+TIMESERIES_FOLDER = f"{DATA_FOLDER}/interim/timeseries"
+MATLAB_SCRIPT = "scripts/01_process_matlab_data.py"
+
+rule all:
+    input:
+        expand("{timeseries_folder}/{sub}_MEG_ASSR_times.nc", sub=SUBS, timeseries_folder=TIMESERIES_FOLDER)
+
+rule process_matlab_data:
+    output:
+        out_file = "{timeseries_folder}/{sub}_MEG_ASSR_times.nc"
+    params:
+        sub = "{sub}",
+        datafolder = DATA_FOLDER,
+        script = MATLAB_SCRIPT
+    conda:
+        "conda-poirot-3.10"
+    shell:
+        "python {params.script} -s {params.sub} -d {params.datafolder} -o {output.out_file}"
+
+
+

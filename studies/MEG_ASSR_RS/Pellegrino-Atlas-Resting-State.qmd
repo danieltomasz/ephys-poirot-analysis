@@ -23,6 +23,6 @@ here::i_am("studies/MEG_ASSR_RS/Pellegrino-Atlas-Resting-State.qmd")
 here()
 ```
 ```{r}
-read.csv(here::here("studies", "MEG_ASSR_RS","specparms.csv"))
+data = read.csv(here::here("studies", "MEG_ASSR_RS","specparms.csv"))
 
 ```
