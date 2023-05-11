@@ -3,15 +3,22 @@ SUBS = ['S001', 'S002', 'S003', 'S004', 'S005', 'S006', 'S007',
 
 DATA_FOLDER = "/Volumes/ExtremePro/Analyses/ASP0"
 TIMESERIES_FOLDER = f"{DATA_FOLDER}/interim/timeseries"
+POWER_FOLDER = f"{DATA_FOLDER}/interim/power"
 MATLAB_SCRIPT = "scripts/01_process_matlab_data.py"
+SPECTRUM_SCRIPT = "scripts/02_compute_spectrum.py"
+
+CONFIG_FILE = "config/specparam_config.json"  # path to the configuration file
+
 
 rule all:
     input:
-        expand("{timeseries_folder}/{sub}_MEG_ASSR_times.nc", sub=SUBS, timeseries_folder=TIMESERIES_FOLDER)
+        expand(f"{POWER_FOLDER}/{{sub}}_MEG_ASSR_power.nc", sub=SUBS)
+
+
 
 rule process_matlab_data:
     output:
-        out_file = "{timeseries_folder}/{sub}_MEG_ASSR_times.nc"
+        out_file = f"{TIMESERIES_FOLDER}/{{sub}}_MEG_ASSR_times.nc"
     params:
         sub = "{sub}",
         datafolder = DATA_FOLDER,
@@ -21,5 +28,17 @@ rule process_matlab_data:
     shell:
         "python {params.script} -s {params.sub} -d {params.datafolder} -o {output.out_file}"
 
+rule compute_spectrum:
+    input:
+        in_file = rules.process_matlab_data.output.out_file
+    output:
+        out_file = f"{POWER_FOLDER}/{{sub}}_MEG_ASSR_power.nc"
+    params:
+        sub = "{sub}",
+        data_folder = DATA_FOLDER,
+        script = SPECTRUM_SCRIPT,
+        config_file = CONFIG_FILE  # pass the configuration file to the script
 
+    shell:
+        "python {params.script} -s {params.sub} -d {params.data_folder} --config {params.config_file}"
 
