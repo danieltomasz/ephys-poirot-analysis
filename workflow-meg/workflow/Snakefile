@@ -9,12 +9,9 @@ SPECTRUM_SCRIPT = "scripts/02_compute_spectrum.py"
 
 CONFIG_FILE = "config/specparam_config.json"  # path to the configuration file
 
-
 rule all:
     input:
         expand(f"{POWER_FOLDER}/{{sub}}_MEG_ASSR_power.nc", sub=SUBS)
-
-
 
 rule process_matlab_data:
     output:
@@ -33,12 +30,12 @@ rule compute_spectrum:
         in_file = rules.process_matlab_data.output.out_file
     output:
         out_file = f"{POWER_FOLDER}/{{sub}}_MEG_ASSR_power.nc"
+    conda:
+        "conda-poirot-3.10"
     params:
         sub = "{sub}",
-        data_folder = DATA_FOLDER,
         script = SPECTRUM_SCRIPT,
         config_file = CONFIG_FILE  # pass the configuration file to the script
-
     shell:
-        "python {params.script} -s {params.sub} -d {params.data_folder} --config {params.config_file}"
+        "python {params.script} -i {input.in_file} -o {output.out_file} --config {params.config_file}"
 
