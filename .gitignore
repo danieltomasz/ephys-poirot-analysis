@@ -33,3 +33,9 @@ MEG-ASSR-Pipeline/
 studies/*/central.cfg
 
 meg-workflow/.snakemake/
+**/archive/
+**/*.log
+**/*.RData
+
+**/*.Rproj
+**/*checkpoint.ipynb
