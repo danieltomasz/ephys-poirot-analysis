@@ -41,3 +41,6 @@ rule compute_spectrum_resting_state:
     shell:
         "python {params.script} -i {input.in_file} -o {output.out_file} --config {params.config_file}"
 
+# rule copy_brainstorm_files:
+#     shell:
+#         'matlab -nodisplay -nosplash -nodesktop -r \"addpath(genpath('matlab/')); GPscriptRestingState; exit"'

@@ -1,0 +1,28 @@
+---
+title: "Pellegrino-Atlas-Resting-State"
+format: html
+---
+
+```{r}
+#remotes::install_github("LCBC-UiO/ggsegDesterieux")
+library(ggsegDesterieux)
+
+library(ggseg)
+library(ggplot2)
+
+plot(desterieux) +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 7)) +
+  guides(fill = guide_legend(ncol = 3))
+```
+
+
+```{r}
+library(here)
+here::i_am("studies/MEG_ASSR_RS/Pellegrino-Atlas-Resting-State.qmd") 
+here()
+```
+```{r}
+data = read.csv(here::here("studies", "MEG_ASSR_RS","specparms.csv"))
+
+```
