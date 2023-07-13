@@ -7,7 +7,7 @@ if ~brainstorm('status')
     brainstorm server
 end
 % Select folder for output
-Output_folder = '/Volumes/ExtremePro/Analyses/tDCS_MEG/brainstorm/'
+Output_folder = '/Volumes/ExtremePro/Analyses/tDCS_MEG/raw/brainstorm/Desikan-Killiany/ASSR/'
 %% Select protocol name
 ProtocolName = 'tDCS_MEG_Marinazzo';
 % get the protocol index, knowing the name
@@ -47,9 +47,12 @@ for jh=1:length(my_subjects.Subject)
                     'addfilecomment', 1);
                 % now time-series have been generated and saved into brainstorm format. We
                 % will loop over these files and save them outside brainstorm
+                dirpath = ([ Output_folder '//' iSubject.Name ]);
                 for as = 1: length (sFiles)
                     temp_tile = load (file_fullpath(sFiles(as).FileName));
-                    Output_FileName = ([Output_folder iSubject.Name '_' char(Subject_Studies(sd).Condition) '_' num2str(as)]);
+                    if ~exist(dirpath,'dir') mkdir(dirpath);end
+                    temp_tile = load (file_fullpath(sFiles(as).FileName));
+                    Output_FileName = ([ dirpath  '//' iSubject.Name '_' char(Subject_Studies(sd).Condition) '_' num2str(as)]);
                     save(Output_FileName, '-struct', 'temp_tile');
                 end
                 % Now let's delete these files from brainstorm database, so that they do

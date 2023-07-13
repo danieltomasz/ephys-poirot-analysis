@@ -7,7 +7,7 @@ if ~brainstorm('status')
     brainstorm server
 end
 % Select folder for output
-Output_folder = '/Volumes/ExtremePro/Analyses/ASP0/'
+Output_folder = '/Volumes/ExtremePro/Analyses/tDCS_MEG/raw/brainstorm/ASP0/'
 %% Select protocol name
 ProtocolName = 'ASP0';
 % get the protocol index, knowing the name

@@ -1,0 +1,35 @@
+## Snakefile for LEMON data
+# Author: 	Daniel Borek
+
+# Define the global Conda environment
+conda: "conda-poirot-3.10"
+DATA_FOLDER = "/Volumes/ExtremePro/Analyses/LEMON"
+RAW_FOLDER = f"{DATA_FOLDER}/RAW"
+#OUTPUT_FOLDER = f"{DATA_FOLDER}/OUTPUT"
+OUTPUT_FOLDER = "data/OUTPUT"
+
+BEHAVIORAL_DATA = f"{DATA_FOLDER}/PREPROC/occipital_data_OH_OL_Sonia_2023-05_16.csv"
+
+# Path hardcoded in the script for now
+
+
+rule all:
+    input: 
+        f"{OUTPUT_FOLDER}/LEMON_annotated_power.nc"
+
+rule load_xarray:
+    output:
+        f"{OUTPUT_FOLDER}/LEMON_power.nc"
+    shell:
+        "python scripts/01_load_xarray.py --data_folder={DATA_FOLDER} --output_folder={OUTPUT_FOLDER}"
+
+
+rule add_metadata:
+    input:
+        f"{OUTPUT_FOLDER}/LEMON_power.nc"
+    output:
+        f"{OUTPUT_FOLDER}/LEMON_annotated_power.nc"
+    params:
+        behavioral_data = BEHAVIORAL_DATA
+    shell:
+        "python scripts/02_add_metadata.py --behavioral_data={params.behavioral_data} --output_folder={OUTPUT_FOLDER}"
